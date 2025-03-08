@@ -1,6 +1,16 @@
 const express = require("express");
+const mongoose = require("mongoose");
 
 const app = express();
+
+mongoose
+  .connect(
+    "mongodb+srv://Mouctar-Conte:hIpUY4Z7LaUttFiM@cluster0.9k8k0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  )
+  .then(() => console.log("Connexion à MongoDB réussie !"))
+  .catch(() => console.log("Connexion à MongoDB échouée !"));
+
+app.use(express.json());
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -15,7 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/stuff", (req, res, next) => {
+app.get("/api/stuff", (req, res, next) => {
   const stuff = [
     {
       _id: "oeihfzeoi",
